@@ -30,7 +30,7 @@ PlayerGameData (via AOB "player_game_data" path)
 1. **Normal items**: indices `0` to `count - 1`
 2. **Key items**: indices `keyItemStart` to `capacity - 1`
 
-Both regions share the same list pointer and entry layout. The scan checks normal items first, then key items.
+Both regions are index ranges within one contiguous array — they share the same `listPtr` base address and entry layout. The scan checks normal items first, then key items.
 
 ### Entry layout (stride 0x10)
 
@@ -65,6 +65,22 @@ type InventoryConfig struct {
     ItemStride          int64  // 0x10
     TypeIdOffset        int64  // 0x04
     QuantityOffset      int64  // 0x08
+}
+```
+
+### DS3 concrete values (`config.go:103-113`)
+
+```go
+Inventory: &InventoryConfig{
+    PathKey:            "player_game_data",
+    DataOffset:         0x3D0,  // DS3OffsetEquipInventoryData
+    CapacityOffset:     0x10,   // DS3OffsetInvCapacity
+    KeyItemStartOffset: 0x14,   // DS3OffsetInvKeyItemStart
+    ListPtrOffset:      0x18,   // DS3OffsetInvListPtr
+    CountOffset:        0x20,   // DS3OffsetInvCount
+    ItemStride:         0x10,   // DS3InvItemStride
+    TypeIdOffset:       0x04,   // DS3InvItemTypeIdOffset
+    QuantityOffset:     0x08,   // DS3InvItemQuantityOffset
 }
 ```
 

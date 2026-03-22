@@ -11,6 +11,8 @@
 
 - `C:\Users\rapha\Downloads\DS3_TGA_v3.4.0\DS3_TGA_v3.4.0.CT` — DS3 cheat table (XML format)
 
+**Note**: This path is user-specific. The CT file location may vary — check the user's Downloads or CheatEngine directories.
+
 ## How it works
 
 ### CT file structure
