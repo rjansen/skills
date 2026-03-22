@@ -49,6 +49,19 @@ Also needs: `EventFlagOffsets64`, `FieldAreaOffsets64`, `IGTOffsets64`, `MemoryP
 
 See the DS3 entry in `config.go:66-154` as the reference implementation.
 
+## Supported games
+
+| Game | Process Name | Arch | Anti-Cheat |
+|------|-------------|------|------------|
+| Dark Souls: Prepare To Die Edition | `DARKSOULS` | 32-bit | None |
+| Dark Souls II | `DarkSoulsII` | 32+64-bit | None |
+| Dark Souls III | `DarkSoulsIII` | 64-bit | None |
+| Dark Souls Remastered | `DarkSoulsRemastered` | 64-bit | None |
+| Sekiro: Shadows Die Twice | `sekiro` | 64-bit | None |
+| Elden Ring | `eldenring` | 64-bit | EAC (must disable) |
+
+Only Elden Ring has anti-cheat — requires launching via `eldenring.exe` directly (not Steam) with EAC disabled.
+
 ## Gotchas
 
 - **Process name is case-sensitive** — check Task Manager for the exact executable name

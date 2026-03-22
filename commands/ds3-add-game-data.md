@@ -46,12 +46,13 @@ Ask yourself: **what kind of data am I adding?**
 
 1. `internal/memreader/ds3_offsets.go` — constants (flags, items, offsets)
 2. `internal/memreader/config.go` — if adding new MemoryPaths, AOB configs, or PathBases
-3. `internal/memreader/reader.go` — if adding new read methods or singletons
-4. `internal/memreader/ds3_offsets_test.go` — unit tests (counts, pinned values, uniqueness)
-5. `internal/memreader/memreader_e2e_ds3_test.go` — e2e test tables
-6. Route JSON file — checkpoints
-7. `internal/route/route_integration_test.go` — route flag/checkpoint validation
-8. `CLAUDE.md` — if documenting new features or offsets
+3. `internal/memreader/aob.go` — if adding new singletons requiring AOB scanning
+4. `internal/memreader/reader.go` — if adding new read methods or singletons
+5. `internal/memreader/ds3_offsets_test.go` — unit tests (counts, pinned values, uniqueness)
+6. `internal/memreader/memreader_e2e_ds3_test.go` — e2e test tables
+7. Route JSON file — checkpoints
+8. `internal/route/route_integration_test.go` — route flag/checkpoint validation
+9. `CLAUDE.md` — if documenting new features or offsets
 
 ## Testing checklist
 

@@ -97,7 +97,7 @@ Verify:
 
 ### Step 8: Update integration test if used in route
 
-If the item is used in a route checkpoint, add it to `route_integration_test.go` expected maps if applicable.
+If the item is referenced in a route checkpoint's `inventory_check`, add its expected `item_id` to `route_integration_test.go`. Specifically, add the item constant to the expected inventory items map in `TestDS3Route_InventoryCheckItemsMatchConstants` so the integration test validates the route JSON references the correct constant value.
 
 ## File modification order
 
