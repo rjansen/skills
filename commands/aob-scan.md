@@ -67,6 +67,11 @@ type AOBPointerConfig struct {
 | GameMan | `mov reg, [rip+?]` (load singleton) | 7 | true |
 | GameDataMan | `mov rax/rbx, [rip+?]` (6 fallback patterns) | 7 | true |
 
+## Notes
+
+- **DS3 only** — AOB patterns are currently only configured for Dark Souls III. Other supported games use static offsets only.
+- `scanWithFallbacks()` is at `reader.go:239-258` — tries primary pattern first, then each `FallbackPatterns` entry in order.
+
 ## Gotchas
 
 - **`instrLen` ≠ pattern byte count** — `instrLen` is the x86 instruction length, not the number of pattern bytes. The SprjEventFlagMan pattern is 28 bytes but `instrLen=11`

@@ -85,5 +85,8 @@ When `resolvePathAddress("game_man")` sees an empty offset list, it calls `resol
 - **Dereference is about the global pointer variable** — AOB finds the ADDRESS of the global pointer var in .data, `Dereference=true` means "read what the global points to"
 - **FieldArea uses Dereference=false** — the AOB resolves directly to the FieldArea object, not a pointer to it
 - **Cache cleared on Detach** — if game process restarts, singletons need re-scanning
-- **Static fallback** — if AOB scan fails, `ReadEventFlag` falls back to `EventFlagOffsets64` / `FieldAreaOffsets64` for SprjEventFlagMan/FieldArea (but not for GameDataMan/GameMan)
+- **Static fallback varies by singleton**:
+  - SprjEventFlagMan and FieldArea fall back to `EventFlagOffsets64` / `FieldAreaOffsets64` if AOB fails
+  - GameDataMan and GameMan have **no static fallback** — AOB scanning must succeed
+  - GameDataMan has 6 fallback AOB patterns (1 primary + 5 in `FallbackPatterns`, see `config.go:136-149`) for resilience
 - **Test injection** — `SetTestAOBAddresses(gameDataMan, gameMan)` bypasses AOB scanning for unit tests
