@@ -34,21 +34,21 @@ Naming convention: `DS3Item<PascalCaseName>` (e.g. `DS3ItemFirebomb`, `DS3ItemCh
 
 ### Step 3: Add to `allItemIDs()` in `ds3_offsets_test.go`
 
-Add entry to `allItemIDs()` function (line 260-290):
+Add entry to `allItemIDs()` function (line 260-294):
 
 ```go
 {"<Name>", DS3Item<Name>},
 ```
 
-Update count in `TestDS3ItemIDs_Count` (currently expects **18**):
+Update count in `TestDS3ItemIDs_Count` (currently expects **22**):
 
 ```go
-if len(items) != 19 {  // increment by 1
+if len(items) != 23 {  // increment by 1
 ```
 
 ### Step 4: Add pinned value to `TestDS3ItemIDs_KnownValues`
 
-Add to the expected slice in `TestDS3ItemIDs_KnownValues` (line 309-345):
+Add to the expected slice in `TestDS3ItemIDs_KnownValues` (line 313-353):
 
 ```go
 {"<Name>", DS3Item<Name>, 0x4000XXXX},
@@ -56,7 +56,7 @@ Add to the expected slice in `TestDS3ItemIDs_KnownValues` (line 309-345):
 
 ### Step 5: Add to e2e test `AllTrackedItems` table
 
-In `internal/memreader/memreader_e2e_ds3_test.go`, add to `TestE2E_ReadInventoryItemQuantity_AllTrackedItems` items slice (line 1027-1052):
+In `internal/memreader/memreader_e2e_ds3_test.go`, add to `TestE2E_ReadInventoryItemQuantity_AllTrackedItems` items slice (line 1027-1056):
 
 ```go
 {DS3Item<Name>, "<Display Name>"},
