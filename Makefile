@@ -20,6 +20,9 @@ mirror:
 	powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/sync.ps1 -Mirror
 	@echo Done.
 
+select:
+	@powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/select.ps1
+
 else
   CLAUDE_HOME := $(HOME)/.claude
 
@@ -39,6 +42,9 @@ mirror:
 	done
 	@echo Done.
 
+select:
+	@bash scripts/select.sh
+
 endif
 
-.PHONY: install mirror
+.PHONY: install mirror select
