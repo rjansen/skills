@@ -124,6 +124,22 @@ if ($confirm -match "^[nN]") {
     exit 0
 }
 
+# Remove previously installed versions of selected items
+Write-Host ""
+Write-Host "Removing previous installations..."
+foreach ($item in $selected) {
+    if ($item.Category -eq "Skill") {
+        $dst = Join-Path $ClaudeHome "skills\$($item.Name)"
+        if (Test-Path $dst) { Remove-Item -Recurse -Force $dst }
+    }
+    else {
+        $catDir = if ($item.Category -eq "Command") { "commands" } else { "agents" }
+        $dstFile = Join-Path $ClaudeHome "$catDir\$($item.Name).md"
+        if (Test-Path $dstFile) { Remove-Item -Force $dstFile }
+    }
+}
+
+# Install selected items
 Write-Host ""
 foreach ($item in $selected) {
     if ($item.Category -eq "Skill") {

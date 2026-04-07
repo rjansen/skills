@@ -133,6 +133,23 @@ if [[ "$confirm" =~ ^[nN] ]]; then
   exit 0
 fi
 
+# Remove previously installed versions of selected items
+echo ""
+echo "Removing previous installations..."
+for i in "${!ITEMS[@]}"; do
+  [[ "${SELECTED[$i]}" == "1" ]] || continue
+  cat="${CATEGORIES[$i]}"
+
+  if [[ "$cat" == "Skill" ]]; then
+    rm -rf "$CLAUDE_HOME/skills/${ITEMS[$i]}"
+  elif [[ "$cat" == "Command" ]]; then
+    rm -f "$CLAUDE_HOME/commands/${ITEMS[$i]}.md"
+  elif [[ "$cat" == "Agent" ]]; then
+    rm -f "$CLAUDE_HOME/agents/${ITEMS[$i]}.md"
+  fi
+done
+
+# Install selected items
 echo ""
 for i in "${!ITEMS[@]}"; do
   [[ "${SELECTED[$i]}" == "1" ]] || continue
