@@ -2,7 +2,7 @@
 
 Detailed rules for organizing changed files into commit groups based on granularity mode.
 
-## Default Mode
+## Bundled Mode
 
 Group by **architectural layer or module boundary**. This is the coarsest grouping and
 maps to how most projects organize code conceptually.
@@ -42,11 +42,11 @@ commit as its source file rather than in the Tests group.
 ## Fine Mode
 
 Group by **package, submodule, or feature within each layer**. This produces more commits
-with narrower scope than default mode.
+with narrower scope than bundled mode.
 
 ### Strategy
 
-1. Start with the same layer detection as default mode
+1. Start with the same layer detection as bundled mode
 2. Within each layer, subdivide by the **nearest package boundary**:
    - Go: each directory with `.go` files is a package
    - Node/TypeScript: each directory with `package.json` or `index.ts`
@@ -81,7 +81,7 @@ Fine mode produces:
 6. `feat(postgres): add order repository adapter`
 7. `chore(server): wire new services in entry point`
 
-Compared to default mode which would produce:
+Compared to bundled mode which would produce:
 1. `feat(domain): add user and order entities`
 2. `feat(app): add user and order services`
 3. `feat(infra): add postgres repositories`

@@ -19,9 +19,9 @@ Parse `$ARGUMENTS` to determine the grouping strategy:
 
 | Argument | Mode | Behavior |
 |----------|------|----------|
-| *(empty)* or `default` | **Default** | Group by architectural layer or module boundary |
+| *(empty)* or `atomic` | **Atomic** | Each logically independent change becomes its own commit |
 | `fine` | **Fine** | Split within layers by package, submodule, or feature |
-| `atomic` | **Atomic** | Each logically independent change becomes its own commit |
+| `bundled` | **Bundled** | Group by architectural layer or module boundary (coarsest) |
 
 Consult **`references/grouping-strategies.md`** for detailed rules per mode.
 
