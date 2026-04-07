@@ -17,6 +17,17 @@ Idiomatic Go conventions for daily coding. All code must pass `goimports`, `go v
 `golangci-lint` without errors. This skill covers the style and formatting rules that keep
 Go code consistent — naming, declarations, structure, and idioms.
 
+## Resolve References
+
+Locate this skill's reference files before starting. Run:
+Glob for `~/.claude/**/go-coding-standards/references/*.md`
+
+This returns the absolute path for `style-details.md`. Store this path —
+all later "Read references/" instructions mean "Read the file at its
+resolved absolute path."
+
+If Glob returns no results, try: `Glob for **/go-coding-standards/references/*.md`
+
 ## Import Ordering
 
 Group imports in three blocks separated by blank lines:
@@ -275,5 +286,5 @@ Use `time.Since(start)` instead of `time.Now().Sub(start)`.
 
 ### Reference Files
 
-For detailed conventions on specific topics:
+Paths resolved in Resolve References section. Read when needed:
 - **`references/style-details.md`** — Comprehensive rules for comments and documentation, error message formatting, slice and map initialization idioms, type assertion patterns, and common golangci-lint configuration

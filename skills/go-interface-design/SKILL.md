@@ -15,6 +15,17 @@ Go interfaces are implicit — a type satisfies an interface by implementing its
 `implements` keyword. This fundamental difference from Java/C# changes where interfaces are
 defined, how large they should be, and when to introduce them.
 
+## Resolve References
+
+Locate this skill's reference files before starting. Run:
+Glob for `~/.claude/**/go-interface-design/references/*.md`
+
+This returns the absolute path for `patterns.md`. Store this path —
+all later "Read references/" instructions mean "Read the file at its
+resolved absolute path."
+
+If Glob returns no results, try: `Glob for **/go-interface-design/references/*.md`
+
 ## The Cardinal Rule: Consumer Defines the Interface
 
 The single most important Go interface principle: define interfaces where they are used, not
@@ -168,5 +179,5 @@ Before introducing an interface, answer these questions:
 
 ### Reference Files
 
-For standard library examples, composition patterns, testing strategies, and advanced techniques:
+Paths resolved in Resolve References section. Read when needed:
 - **`references/patterns.md`** — Stdlib interface catalog, sealed interface pattern, generics interplay, mock strategies, and a worked refactoring example (producer→consumer)

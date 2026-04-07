@@ -16,6 +16,17 @@ Reviewing Go project architecture follows a systematic procedure: scan the proje
 trace dependency direction, and check against known anti-patterns. Good architecture makes
 the next change easy — the goal is to identify structural issues that increase the cost of change.
 
+## Resolve References
+
+Locate this skill's reference files before starting. Run:
+Glob for `~/.claude/**/go-architecture-review/references/*.md`
+
+This returns absolute paths for `layout-patterns.md` and `anti-patterns.md`.
+Store these paths — all later "Read references/" instructions mean "Read the
+file at its resolved absolute path."
+
+If Glob returns no results, try: `Glob for **/go-architecture-review/references/*.md`
+
 ## Review Process: Scan → Trace → Check
 
 ### Step 1: Scan
@@ -165,6 +176,6 @@ store := NewStore(cfg.DatabaseURL, cfg.MaxConnections)
 
 ### Reference Files
 
-For detailed layout patterns, migration strategies, and anti-pattern resolution:
+Paths resolved in Resolve References section. Read when needed:
 - **`references/layout-patterns.md`** — Monorepo vs single-module, when to use `pkg/`, migration from flat to layered, example composition root with graceful shutdown
 - **`references/anti-patterns.md`** — Eliminating utils packages, refactoring init() side effects, resolving circular dependencies, fixing domain leakage

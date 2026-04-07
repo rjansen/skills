@@ -16,6 +16,17 @@ Tests are production code that happen to run with `go test`. Apply the same desi
 clear naming, focused scope, maintainable structure. This skill covers test design philosophy,
 helpers, fixtures, HTTP testing, and organization patterns.
 
+## Resolve References
+
+Locate this skill's reference files before starting. Run:
+Glob for `~/.claude/**/go-test-quality/references/*.md`
+
+This returns absolute paths for `mocking-strategies.md` and
+`integration-testing.md`. Store these paths — all later "Read references/"
+instructions mean "Read the file at its resolved absolute path."
+
+If Glob returns no results, try: `Glob for **/go-test-quality/references/*.md`
+
 ## Test Design Philosophy
 
 **Test behavior, not implementation.** A test that breaks when internal method names change but
@@ -250,6 +261,6 @@ go tool cover -func=coverage.out          # per-function summary
 
 ### Reference Files
 
-For in-depth coverage of specific testing topics:
+Paths resolved in Resolve References section. Read when needed:
 - **`references/mocking-strategies.md`** — Function-field mocks, function injection, generated mocks comparison (gomock vs moq vs counterfeiter), fake vs mock vs stub, what NOT to mock
 - **`references/integration-testing.md`** — Testcontainers setup, build tags vs testing.Short(), database fixtures, fuzz testing deep dive

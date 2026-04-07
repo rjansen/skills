@@ -16,6 +16,17 @@ Structured code review for Go projects. The process follows four phases: gather 
 read the code, analyze against Go-specific categories, and produce a severity-rated report.
 Only report findings with high confidence — speculative issues create noise.
 
+## Resolve References
+
+Locate this skill's reference files before starting. Run:
+Glob for `~/.claude/**/go-code-review/references/*.md`
+
+This returns the absolute path for `review-checklist.md`. Store this path —
+all later "Read references/" instructions mean "Read the file at its
+resolved absolute path."
+
+If Glob returns no results, try: `Glob for **/go-code-review/references/*.md`
+
 ## Review Process
 
 ### Phase 1: Gather
@@ -169,5 +180,5 @@ warnings to fill the report.
 
 ### Reference Files
 
-For detailed per-category checklists:
+Paths resolved in Resolve References section. Read when needed:
 - **`references/review-checklist.md`** — Comprehensive checklist items for each review category with Go-specific checks for error handling, nil safety, goroutine lifecycle, context propagation, race conditions, and dependency hygiene

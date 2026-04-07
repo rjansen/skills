@@ -25,6 +25,18 @@ working directory.
 
 ## Workflow
 
+### Phase 0 — Resolve References
+
+Locate this skill's reference files before starting. Run:
+Glob for `~/.claude/**/create-claude-md/references/*.md`
+
+This returns absolute paths for three files: `target-template.md`,
+`extraction-rules.md`, and `codebase-analysis.md`. Store these paths —
+all later "Read references/" instructions mean "Read the file at its
+resolved absolute path."
+
+If Glob returns no results, try: `Glob for **/create-claude-md/references/*.md`
+
 ### Phase 1 — Detect Mode
 
 Check whether `CLAUDE.md` exists at the project root.
@@ -53,13 +65,13 @@ Run these in parallel to understand the project:
 - Glob for `.claude/` directory to detect plugin/skill/agent references
 - If refactor mode: parse existing CLAUDE.md into sections by H2 headings and classify each
 
-Consult **`references/codebase-analysis.md`** for language-specific detection patterns
-and command discovery heuristics.
+Read **`references/codebase-analysis.md`** (resolved in Phase 0) for language-specific
+detection patterns and command discovery heuristics.
 
 ### Phase 3 — Plan Extraction
 
 Apply the extraction decision matrix to each content block.
-Consult **`references/extraction-rules.md`** for the complete matrix.
+Read **`references/extraction-rules.md`** (resolved in Phase 0) for the complete matrix.
 
 **Content that ALWAYS stays inline:**
 - Project name + tech stack (1-2 lines)
@@ -97,7 +109,7 @@ For each extraction target identified in Phase 3:
 ### Phase 5 — Write CLAUDE.md
 
 Compose the final file following the 5-section template.
-Consult **`references/target-template.md`** for the exact format and examples.
+Read **`references/target-template.md`** (resolved in Phase 0) for the exact format and examples.
 
 The 5 required sections: **H1 Project** (name + stack, 2 lines), **Commands** (full flags,
 prefer make targets), **Architecture** (folder map, one line each), **Code Style** (3-5
@@ -153,7 +165,7 @@ For create mode, report "N/A — created from scratch" in the Before column.
 
 ### Reference Files
 
-For detailed patterns and heuristics, consult:
+Paths resolved in Phase 0. Read each file when its phase requires it:
 - **`references/target-template.md`** — Gold-standard 5-section template with annotated examples for Go, Node, and monorepo projects
 - **`references/extraction-rules.md`** — Complete decision matrix for what stays inline vs what gets extracted, with detection signals and merge strategies
 - **`references/codebase-analysis.md`** — Language-specific detection patterns, command discovery heuristics, and architecture mapping strategies

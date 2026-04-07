@@ -13,6 +13,18 @@ Create well-structured conventional commits from all current uncommitted changes
 Analyze the codebase structure, detect breaking changes, group files by logical
 units, order commits by dependency, and produce clean conventional commit messages.
 
+## Resolve References
+
+Locate this skill's reference files before starting. Run:
+Glob for `~/.claude/**/cc/references/*.md`
+
+This returns absolute paths for three files: `grouping-strategies.md`,
+`dependency-ordering.md`, and `breaking-changes.md`. Store these paths —
+all later "Read references/" instructions mean "Read the file at its
+resolved absolute path."
+
+If Glob returns no results, try: `Glob for **/cc/references/*.md`
+
 ## Granularity Modes
 
 Parse `$ARGUMENTS` to determine the grouping strategy:
@@ -23,7 +35,7 @@ Parse `$ARGUMENTS` to determine the grouping strategy:
 | `fine` | **Fine** | Split within layers by package, submodule, or feature |
 | `bundled` | **Bundled** | Group by architectural layer or module boundary (coarsest) |
 
-Consult **`references/grouping-strategies.md`** for detailed rules per mode.
+Read **`references/grouping-strategies.md`** (resolved above) for detailed rules per mode.
 
 ## Workflow
 
@@ -54,7 +66,7 @@ other changed files. Build a lightweight dependency map to inform ordering in St
 
 ### Step 3 — Detect Breaking Changes
 
-Scan the diff for breaking change signals. Consult **`references/breaking-changes.md`** for
+Scan the diff for breaking change signals. Read **`references/breaking-changes.md`** (resolved above) for
 the full detection pattern catalog. Key signals:
 
 - **Removed or renamed public exports** — functions, types, constants
@@ -75,7 +87,7 @@ Apply the grouping strategy based on the selected granularity mode.
 - Skip any group with no changed files
 - Never split a single logical change across groups (e.g., an interface and its only implementation)
 
-Consult **`references/grouping-strategies.md`** for the complete grouping rules per mode.
+Read **`references/grouping-strategies.md`** (resolved above) for the complete grouping rules per mode.
 
 ### Step 5 — Order by Dependency
 
@@ -90,7 +102,7 @@ Order commit groups so that dependencies are committed before dependents.
    - Source code before tests (unless tightly coupled)
    - Code before documentation
 
-Consult **`references/dependency-ordering.md`** for detailed ordering rules and
+Read **`references/dependency-ordering.md`** (resolved above) for detailed ordering rules and
 language-specific import analysis patterns.
 
 ### Step 6 — Commit Each Group
@@ -148,7 +160,7 @@ any sensitive files excluded.
 
 ### Reference Files
 
-For detailed strategies and detection patterns, consult:
+Paths resolved in Resolve References section. Read each file when needed:
 - **`references/grouping-strategies.md`** — Complete grouping rules for default, fine, and atomic modes with examples
 - **`references/dependency-ordering.md`** — Import graph analysis, topological sorting, and language-specific patterns
 - **`references/breaking-changes.md`** — Full catalog of breaking change detection patterns across languages

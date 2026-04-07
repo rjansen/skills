@@ -15,6 +15,17 @@ Table-driven tests are Go's primary idiom for testing multiple inputs through th
 assertion logic. This skill covers when to use them, how to structure the test case table,
 and when to refactor away from them.
 
+## Resolve References
+
+Locate this skill's reference files before starting. Run:
+Glob for `~/.claude/**/go-test-table-driven/references/*.md`
+
+This returns the absolute path for `refactoring-guide.md`. Store this path —
+all later "Read references/" instructions mean "Read the file at its
+resolved absolute path."
+
+If Glob returns no results, try: `Glob for **/go-test-table-driven/references/*.md`
+
 ## When Table Tests Shine
 
 Use a table-driven test when ALL four conditions hold:
@@ -282,5 +293,5 @@ All yes → table-driven test is the right choice.
 
 ### Reference Files
 
-For refactoring strategies and advanced patterns:
+Paths resolved in Resolve References section. Read when needed:
 - **`references/refactoring-guide.md`** — Symptom→fix table with before/after code, splitting bloated tables, test matrices, and converting between subtests and table tests

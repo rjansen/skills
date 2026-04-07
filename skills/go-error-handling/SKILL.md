@@ -17,6 +17,17 @@ Go's explicit error handling requires choosing the right pattern for each situat
 provides a decision framework and idiomatic patterns for error creation, wrapping, inspection,
 and propagation.
 
+## Resolve References
+
+Locate this skill's reference files before starting. Run:
+Glob for `~/.claude/**/go-error-handling/references/*.md`
+
+This returns the absolute path for `patterns.md`. Store this path —
+all later "Read references/" instructions mean "Read the file at its
+resolved absolute path."
+
+If Glob returns no results, try: `Glob for **/go-error-handling/references/*.md`
+
 ## Error Decision Tree
 
 When creating or returning an error, follow this decision path:
@@ -196,5 +207,5 @@ Before completing error handling work, verify:
 
 ### Reference Files
 
-For advanced patterns, edge cases, and common mistakes, consult:
+Paths resolved in Resolve References section. Read when needed:
 - **`references/patterns.md`** — Deferred error annotation, multi-error inspection chains, domain error hierarchies, HTTP boundary mapping, and common pitfalls
