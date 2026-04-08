@@ -105,12 +105,32 @@ Order commit groups so that dependencies are committed before dependents.
 Read **`references/dependency-ordering.md`** (resolved above) for detailed ordering rules and
 language-specific import analysis patterns.
 
+### Step 5.5 — Validate Groups
+
+Before committing, review each group against these red flags:
+
+1. **Mixed intent** — does the group's description need "and" to join unrelated items?
+   If yes, split into separate groups.
+2. **Mixed commit types** — does the group contain both additions (`feat`) and removals
+   (`refactor`/`chore`)? If yes, split by type. This applies to **all modes**.
+3. **Oversized scope** — in atomic mode, does the group touch more than 4-5 files?
+   Re-examine whether all hunks truly serve one purpose.
+4. **Single-purpose test** (atomic only) — could you write a one-sentence description
+   of what the commit does without using conjunctions? If not, it likely contains
+   multiple logical changes.
+
+If any flag fires, return to Step 4 and re-split the affected group.
+
 ### Step 6 — Commit Each Group
 
 For every group, in dependency order:
 
 1. **Stage only that group's files** — use `git add <file1> <file2> ...` with explicit paths.
    Never use `git add -A` or `git add .`.
+   - **Atomic mode with shared files**: when a file has hunks belonging to different groups,
+     use `git add -p <file>` to interactively stage only the relevant hunks. Answer `y` for
+     hunks in this group, `n` for hunks belonging to other groups. If a hunk contains mixed
+     changes, use `s` to split it further or `e` to edit the hunk manually.
 2. **Skip sensitive files** — never commit `.env`, credentials, secrets, or API keys. Warn and exclude.
 3. **Write a Conventional Commits message** using HEREDOC format:
 
