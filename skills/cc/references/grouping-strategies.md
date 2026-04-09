@@ -198,19 +198,23 @@ Note how the same files (`app.go`, `display.go`, `display_test.go`) can appear i
 multiple commits when they contain hunks serving different purposes. Use `git add -p`
 to stage only the relevant hunks per commit.
 
-### Red Flags — Self-Check Before Committing
+### Red Flags — Self-Check Before Committing (MANDATORY)
 
-After grouping, review each group against these signals of under-splitting:
+After grouping, you MUST check every group against ALL of these signals. If any signal
+fires, you MUST split — do not rationalize keeping the group together.
 
 1. **"And" test** — your commit message needs "and" to describe unrelated actions
-   (e.g., "add backup UI **and** remove stats menu"). Split.
-2. **Mixed types** — the group mixes `feat` + `refactor`, or `fix` + `chore`. Split by type.
+   (e.g., "add backup UI **and** remove stats menu"). → MUST split.
+2. **Mixed types** — the group mixes `feat` + `refactor`, or `fix` + `chore`. → MUST split by type.
 3. **New + removed in same commit** — adding functionality and removing different
-   functionality are always separate logical units.
-4. **5+ files, single package** — not inherently wrong, but re-examine whether every
-   file truly serves the same atomic purpose.
+   functionality are always separate logical units. → MUST split.
+4. **5+ files** — any group with 5+ files MUST be re-examined. Ask: does every file
+   serve the exact same atomic purpose? If not → split.
 5. **Multiple bullet points describing unrelated things** — if the commit body lists
-   changes that don't depend on each other, they're likely separate logical units.
+   changes that don't depend on each other → MUST split into separate commits.
+6. **Cross-concern changes** — build configs (gradle, maven, package.json), docker files,
+   CI configs, and documentation are almost never part of the same logical change as
+   source code. → Split into their own commits.
 
 ## Scope Detection Rules
 

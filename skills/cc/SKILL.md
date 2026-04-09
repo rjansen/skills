@@ -86,6 +86,14 @@ Apply the grouping strategy based on the selected granularity mode.
 - When a test is tightly coupled to the code it tests (e.g., added alongside a new function), include it in that group's commit
 - Skip any group with no changed files
 - Never split a single logical change across groups (e.g., an interface and its only implementation)
+- **A refactoring is NOT one logical change.** A refactoring that splits a class, creates a
+  new module, updates build configs, and adds docker services contains at least 4 distinct
+  logical changes. Group by purpose (what each change achieves independently), not by the
+  user story that motivated the work.
+- **New files, deleted files, and modified files rarely belong in the same commit** unless
+  the modification is a direct consequence of the addition/deletion (e.g., updating an import
+  after adding a new module). Build configs, docker files, and documentation are almost always
+  separate commits.
 
 Read **`references/grouping-strategies.md`** (resolved above) for the complete grouping rules per mode.
 
@@ -105,21 +113,39 @@ Order commit groups so that dependencies are committed before dependents.
 Read **`references/dependency-ordering.md`** (resolved above) for detailed ordering rules and
 language-specific import analysis patterns.
 
-### Step 5.5 — Validate Groups
+### Step 5.5 — Validate Groups (MANDATORY — never skip)
 
-Before committing, review each group against these red flags:
+**Before committing, you MUST output the proposed commit plan** as a numbered list.
+For each group, print:
+
+```
+Group N: type(scope): description
+  Files: file1, file2, ...
+  Validation:
+    - "and" test: PASS/FAIL
+    - mixed types: PASS/FAIL
+    - file count: N (limit: 5 for atomic, 10 for fine)
+    - single-purpose: PASS/FAIL
+```
+
+Then apply each check below. If **any** check FAILs for **any** group, you MUST
+return to Step 4 and re-split before proceeding. Do NOT commit with failures.
 
 1. **Mixed intent** — does the group's description need "and" to join unrelated items?
-   If yes, split into separate groups.
+   If yes → FAIL. Split into separate groups.
 2. **Mixed commit types** — does the group contain both additions (`feat`) and removals
-   (`refactor`/`chore`)? If yes, split by type. This applies to **all modes**.
-3. **Oversized scope** — in atomic mode, does the group touch more than 4-5 files?
-   Re-examine whether all hunks truly serve one purpose.
-4. **Single-purpose test** (atomic only) — could you write a one-sentence description
-   of what the commit does without using conjunctions? If not, it likely contains
-   multiple logical changes.
+   (`refactor`/`chore`)? If yes → FAIL. Split by type. This applies to **all modes**.
+3. **Oversized scope** — in atomic mode, does the group touch more than 5 files?
+   In fine mode, more than 10? → FAIL. Split further — a large file count almost
+   always signals multiple logical changes bundled together.
+4. **Single-purpose test** (atomic and fine) — could you write a one-sentence description
+   of what the commit does without using conjunctions? If not → FAIL. It contains
+   multiple logical changes that must be separated.
+5. **Multi-bullet body test** — would the commit body need multiple bullets describing
+   unrelated changes? If yes → FAIL. Each bullet likely represents a separate commit.
 
-If any flag fires, return to Step 4 and re-split the affected group.
+After re-splitting, output the updated plan and re-validate. Repeat until all groups PASS.
+Only then proceed to Step 6.
 
 ### Step 6 — Commit Each Group
 
@@ -127,10 +153,15 @@ For every group, in dependency order:
 
 1. **Stage only that group's files** — use `git add <file1> <file2> ...` with explicit paths.
    Never use `git add -A` or `git add .`.
-   - **Atomic mode with shared files**: when a file has hunks belonging to different groups,
-     use `git add -p <file>` to interactively stage only the relevant hunks. Answer `y` for
-     hunks in this group, `n` for hunks belonging to other groups. If a hunk contains mixed
-     changes, use `s` to split it further or `e` to edit the hunk manually.
+   - **Shared files across groups**: when a file has hunks belonging to different groups,
+     you cannot use `git add -p` (it is interactive and not supported in this environment).
+     Instead, use a **patch-based approach**:
+     1. Generate the file's diff: `git diff -- <file> > /tmp/full.patch`
+     2. Manually construct a partial patch containing only the relevant hunks
+     3. Apply it to the index: `git apply --cached /tmp/partial.patch`
+     Or alternatively, stage the whole file and use `git reset -p` is also interactive —
+     so if hunks cannot be cleanly separated, prefer grouping files that share hunks
+     into the same commit rather than leaving changes partially committed.
 2. **Skip sensitive files** — never commit `.env`, credentials, secrets, or API keys. Warn and exclude.
 3. **Write a Conventional Commits message** using HEREDOC format:
 
